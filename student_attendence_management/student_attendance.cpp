@@ -2,7 +2,7 @@
 #include <string>
 #include <fstream>
 #include <cstring>
-
+       
 using namespace std;
 
 int studentLogin();
@@ -22,7 +22,7 @@ int main()
     
         // system("clear");
         cout << " Welcome to Student Attendance Management System! \n" << endl;
-	    cout << " ------------------------------------------------ \n" << endl;
+        cout << " ------------------------------------------------ \n" << endl;
     
         cout << " 1. Student Login " << endl;
         cout << " 2. Admin Login " << endl;
@@ -164,7 +164,7 @@ int registerStudent()
     // generate a file to store the name of  all students' info files
     ofstream out;
     out.open("db.dat", ios::app);
-    out << username + ".dat" << "\n";
+    out << username << "\n";
     out.close();
 
     // generate a file to store the registered student's info
@@ -191,5 +191,31 @@ int registerStudent()
 int listStudents()
 {
     cout << " -------- List all the students! -------- " << endl;
+   
+    // check if record already exist...
+    ifstream read;
+    read.open("db.dat");
+    
+    if(read)
+    {
+       int recordFound = 0;
+       string line;
+       while(getline(read, line))
+       {
+           char name[100];
+           strcpy(name, line.c_str());
+           cout << "\n " << name << endl;
+       }
+    }
+    // read.close();
+    else
+    {
+        cout << "\n No Record found ! ";
+    }
+    read.close();
+    cout << "\n Press any key to continue.. ";
+    getchar();
+    getchar();
+
     return 0;
 }
